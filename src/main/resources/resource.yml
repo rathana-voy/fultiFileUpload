@@ -1,0 +1,5 @@
+resource:
+  config:
+    path:
+      upload: /opt/project/NhamEy/upload/user-profiles/
+      handler: /resources/upload/user-profiles/
