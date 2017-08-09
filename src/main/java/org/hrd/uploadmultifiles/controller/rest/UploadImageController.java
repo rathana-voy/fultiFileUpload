@@ -51,7 +51,7 @@ public class UploadImageController {
                 map.put("DATA", profileInfo);
                 map.put("MESSAGE", "UPLOAD SUCCESS");
                 map.put("STATUS", true);
-                map.put("CODE", "200");
+                map.put("CODE", 200);
             }else{
                 map.put("DATA", null);
                 map.put("MESSAGE" , "HAVE AN ERROR ");
@@ -68,44 +68,4 @@ public class UploadImageController {
         return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
     }
 
-    @PostMapping("profile")
-    public ResponseEntity<Map<String, Object>> uploadProductImages(@RequestParam("file") List<MultipartFile> files){
-        Map<String , Object> map=new HashMap<>();
-        try{
-            System.out.println(this.appResource.getUploadPath());
-            System.out.println(this.appResource.getHandlerPath());
-            fileUploader.setResourcePath(this.appResource.getUploadPath());
-            fileUploader.setResourcesHandler(this.appResource.getHandlerPath());
-            //fileUploader.setMultipartFile(file);
-
-            /*/upload file to server/
-            **parameter @Param oldFileName if null,it upload new file to server. but in contrast it update existing
-            * file that you provide the name to @Param oldFileName
-            **
-            */
-            if(fileUploader.upload(null)) {
-                File profileInfo = new File();
-                profileInfo.setAbsolutePath(fileUploader.getAbsolutePath());
-                profileInfo.setFileName(fileUploader.getFilename());
-                profileInfo.setHandlerPath(fileUploader.getResourcesHandler());
-                profileInfo.setResourcePath(fileUploader.getResourcePath());
-                map.put("DATA", profileInfo);
-                map.put("MESSAGE", "UPLOAD SUCCESS");
-                map.put("STATUS", true);
-                map.put("CODE", "200");
-            }else{
-                map.put("DATA", null);
-                map.put("MESSAGE" , "HAVE AN ERROR ");
-                map.put("STATUS",false);
-                map.put("CODE","500");
-            }
-        }catch (Exception e){
-            map.put("DATA", null);
-            map.put("MESSAGE" , "HAVE AN ERROR ");
-            map.put("STATUS",false);
-            map.put("CODE","500");
-            e.printStackTrace();
-        }
-        return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
-    }
 }
